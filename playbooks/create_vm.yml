@@ -5,13 +5,14 @@
 
   tasks:
   - name: Create Nutanix VM
-    ntnx_vm:
+    nutanix.ncp.ntnx_vm:
       state: present
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"
       nutanix_password: "{{ password }}"
+      nutanix_port: 443
       validate_certs: false
-      name: "RHEL 8 VM"
+      name: "{{ vm_name }}"
       cluster:
         name: "{{ cluster_name }}"   
       networks:
@@ -21,7 +22,7 @@
       disks:
         - type: "DISK"
           size_gb: 100
-          bus: "PCI"
+          bus: "SCSI"
       vcpus: 4
       memory_gb: 8
       timezone: UTC

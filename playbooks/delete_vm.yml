@@ -5,7 +5,7 @@
 
   tasks:
   - name: Delete VM
-    ntnx_vms:
+    nutanix.ncp.ntnx_vms:
       state: absent
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"

@@ -5,7 +5,7 @@
 
   tasks:
   - name: Create Nutanix VM
-    nutanix.ncp.ntnx_vm:
+    nutanix.ncp.ntnx_vms:
       state: present
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"

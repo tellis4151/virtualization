@@ -9,6 +9,7 @@
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"
       nutanix_password: "{{ password }}"
+      nutanix_port: 443
       validate_certs: false
     register: cluster_result
 

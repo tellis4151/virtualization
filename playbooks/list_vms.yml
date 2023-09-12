@@ -14,7 +14,7 @@
       length: 1
       offset: 1
       sort_order: "ASCENDING"
-      sort_attribut: "vm_name"
+      sort_attribute: "vm_name"
     register: vm_result
 
   - name: Print Cluster Info

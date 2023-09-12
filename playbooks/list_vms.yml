@@ -1,0 +1,22 @@
+---
+- name: Gather Nutanix Virtual Machine Info
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Gather VM Info
+    nutanix.ncp.ntnx_vms_info:
+      nutanix_host: "{{ ip }}"
+      nutanix_username: "{{ username }}"
+      nutanix_password: "{{ password }}"
+      nutanix_port: 443
+      validate_certs: false
+      length: 1
+      offset: 1
+      sort_order: "ASCENDING"
+      sort_attribut: "vm_name"
+    register: vm_result
+
+  - name: Print Cluster Info
+    debug:
+      msg: "{{ vm_result }}"

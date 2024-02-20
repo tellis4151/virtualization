@@ -7,9 +7,9 @@
   - name: Gather Cluster Info
     nutanix.ncp.ntnx_clusters_info:
       nutanix_host: "{{ ip }}"
-      nutanix_username: "{{ username }}"
-      nutanix_password: "{{ password }}"
-      nutanix_port: 443
+      nutanix_username: "{{ Username }}"
+      nutanix_password: "{{ Password }}"
+      nutanix_port: 9440
       validate_certs: false
     register: cluster_result
 

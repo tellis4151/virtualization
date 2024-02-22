@@ -19,4 +19,4 @@
 
   - name: Print Cluster Info
     debug:
-      var: vm_result
+      var: vm_result.entities.name

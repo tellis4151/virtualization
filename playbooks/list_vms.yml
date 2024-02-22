@@ -18,6 +18,5 @@
     register: vm_result
 
   - name: Print Cluster Info
-    copy:
-      content: "{{ vm_result }}"
-      dest: "/var/lib/awx/projects/files/vm_list.txt"
+    debug:
+      var: vm_result

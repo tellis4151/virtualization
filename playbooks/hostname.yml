@@ -1,6 +1,6 @@
 ---
 - name: Set Hostname
-  hosts: demo
+  hosts: rhel8_demo_vm
   become: true
   gather_facts: false
 

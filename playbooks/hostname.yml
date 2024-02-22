@@ -1,6 +1,6 @@
 ---
 - name: Set Hostname
-  hosts: rhel8_demo_vm
+  hosts: Nutanix
   become: true
   gather_facts: false
 

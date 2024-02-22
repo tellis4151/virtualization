@@ -10,18 +10,20 @@
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"
       nutanix_password: "{{ password }}"
-      nutanix_port: "{{ port }}"
+      nutanix_port: 9440
       validate_certs: false
       name: "{{ vm_name }}"
       cluster:
-        name: "{{ cluster_name }}"   
+        name: "Arthrex-AAP-Demo"    
       networks:
         - is_connected: True
           subnet:
-            name: "{{ network_name }}"
+            name: "Primary"
       disks:
         - type: "DISK"
-          size_gb: 100
+          size_gb: 75
+          clone_image:
+            name: "RHEL8_Base_OS"
           bus: "SCSI"
       vcpus: 4
       memory_gb: 8

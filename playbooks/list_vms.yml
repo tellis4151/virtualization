@@ -1,7 +1,7 @@
 ---
 - name: Gather Nutanix Virtual Machine Info
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
 
   tasks:
   - name: Gather VM Info

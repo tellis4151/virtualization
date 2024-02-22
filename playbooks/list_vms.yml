@@ -9,14 +9,15 @@
       nutanix_host: "{{ ip }}"
       nutanix_username: "{{ username }}"
       nutanix_password: "{{ password }}"
-      nutanix_port: 443
+      nutanix_port: 9440
       validate_certs: false
-      length: 1
+      length: 1000
       offset: 1
       sort_order: "ASCENDING"
       sort_attribute: "vm_name"
     register: vm_result
 
   - name: Print Cluster Info
-    debug:
-      msg: "{{ vm_result }}"
+    copy:
+      content: "{{ vm_result }}"
+      dest: "/var/lib/awx/projects/files/vm_list.txt"

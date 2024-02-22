@@ -1,0 +1,11 @@
+---
+- name: Set Hostname
+  hosts: demo
+  become: true
+  gather_facts: false
+
+  tasks:
+  - name: Set VM Hostname
+    ansible.builtin.hostname:
+      name: "{{ vm_name }}"
+      use: systemd

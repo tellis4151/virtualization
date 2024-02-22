@@ -1,6 +1,6 @@
 ---
 - name: Set Hostname
-  hosts: Nutanix
+  hosts: all
   become: true
   gather_facts: false
 

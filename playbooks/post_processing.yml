@@ -3,6 +3,7 @@
   hosts: all
   become: true
   gather_facts: false
+  ignore_errors: yes
 
   tasks:
   - name: Install Packages

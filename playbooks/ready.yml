@@ -1,0 +1,10 @@
+---
+- name: Print VM information
+  hosts: all
+  become: true
+  
+  tasks:
+  - name: Print Hostname and IP from ansible facts
+    ansible.builtin.debug:
+      msg: VM "{{ inventory_hostname }}" "{{ ansible_ssh_host }}" is ready
+  

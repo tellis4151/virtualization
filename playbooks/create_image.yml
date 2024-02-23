@@ -17,7 +17,7 @@
         - name: "Arthrex-AAP-Demo"
       checksum: 
         checksum_alogrithm: SHA_256
-        checksum_value:
+        checksum_value: 6a9f135b8836edd06aba1b94fd6d0e72bd97b4115a3d2a61496b33f73e0a13a5
       name: "ansible-rhel9-demo"
       desc: "RHEl9 Base Image"
       image_type: "ISO_IMAGE"

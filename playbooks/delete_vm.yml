@@ -12,3 +12,7 @@
       nutanix_password: "{{ password }}"
       validate_certs: false
       vm_uuid: "{{ vm_uuid }}"
+
+  - name: UUID of vm of delete 
+    debug:
+      msg: The following VM "{{ vm_uuid }}" has been deleted 

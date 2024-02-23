@@ -1,0 +1,21 @@
+---
+- name: Post Provisioning Configurations
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+  - name: Install Packages
+    dnf:
+      name:
+        - sssd
+        - realmd
+        - oddjob
+        - oddjob-mkhomedir
+        - adcli
+        - samba-common
+        - samba-common-tools
+        - krb5-workstation
+        - openldap-clients
+        - policycoreutils-python-utils
+      state: present

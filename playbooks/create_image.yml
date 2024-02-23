@@ -9,7 +9,7 @@
     nutanix.ncp.ntnx_images:
       state: "present"
       nutanix_host: "{{ ip }}"
-      nutanix_usernmae: "{{ username }}"
+      nutanix_username: "{{ username }}"
       nutanix_password: "{{ password }}"
       validate_certs: false
       source_path: "/var/lib/awx/projects/files/rhel-9.3-x86_64-boot.iso"

@@ -23,7 +23,7 @@
         - type: "DISK"
           size_gb: 75
           clone_image:
-            name: "RHEL8_Base_OS"
+            name: "RHEL8_Golden_Image"
           bus: "SCSI"
       vcpus: 4
       memory_gb: 8

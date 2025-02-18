@@ -6,6 +6,6 @@ collections:
 - name: vmware.vmware_rest
   source: https://3.86.109.168/pulp_ansible/galaxy/rh-certified/
 - name: community.general
-  source:https://3.86.109.168/pulp_ansible/galaxy/community/
+  source: https://3.86.109.168/pulp_ansible/galaxy/community/
 - name: kubevirt.core
   source: https://3.86.109.168/pulp_ansible/galaxy/rh-certified/

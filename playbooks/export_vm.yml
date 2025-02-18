@@ -1,0 +1,22 @@
+---
+- name: Export VMWare VMWare
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Export VM as OVF Template
+    vmware.vmware_rest.vcenter_ovf_libraryitem:
+      vcenter_hostname: "{{ vc_host }}"
+      vcenter_username: "{{ vc_username }}"
+      vcenter_password: "{{ vc_password }}"
+      session_timeout: 2900
+      source:
+        type: VirtualMachine
+        id: "{{ vm_id }}"
+      target:
+        library_id: "{{ nfs_lib_id }}"
+      create_spec:
+        name: demo_golden_image
+        description: an OVF example
+        flags: []
+      state: present

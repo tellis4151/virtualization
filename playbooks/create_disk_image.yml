@@ -1,0 +1,27 @@
+---
+- name: Create Nutanix clone_image
+  hosts: localhost
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: Create Clone clone image 
+    nutanix.ncp.ntnx_images:
+      state: "present"
+      nutanix_host: "{{ ip }}"
+      nutanix_username: "{{ username }}"
+      nutanix_password: "{{ password }}"
+      validate_certs: false
+      source_path: "<path_to_vmdk>"
+      clusters: 
+        - name: "Arthrex-AAP-Demo"
+      checksum: 
+        checksum_algorithm: SHA_256
+        checksum_value: 6a9f135b8836edd06aba1b94fd6d0e72bd97b4115a3d2a61496b33f73e0a13a5
+      name: "ansible-rhel9-demo"
+      desc: "RHEl9 Base Image"
+      image_type: "ISO_IMAGE"
+      version:
+        product_name: "Red Hat"
+        product_version: "9" 
+      wait: true

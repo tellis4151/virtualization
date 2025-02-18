@@ -1,0 +1,12 @@
+---
+- name: Convert OVF File to OVA
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Convert OVF File to OVA
+    command: ovftool vi:<admin_account>@<vsphere_url>:<password>@<vsphere_url/vm_path ./demotest.ova
+
+  - name: SCP OVA file to Nutanix Environment
+    fetch: <path>/<ova_file>
+    src: /temp/demotest.ova

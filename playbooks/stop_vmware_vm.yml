@@ -1,0 +1,14 @@
+---
+- name: Power of VMWare VMWare
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Power off VMW
+    vmware.vmware_rest.vcenter_vm_power:
+      vcenter_hostname: "{{ vc_host }}"
+      vcenter_username: "{{ vc_username }}"
+      vcenter_password: "{{ vc_password }}"
+      state: shutdown
+      vm: "{{ vm_id }}"
+    

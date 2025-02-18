@@ -7,3 +7,5 @@ collections:
   source: https://3.86.109.168/api/galaxy/content/rh-certified/
 - name: community.general
   source: https://3.86.109.168/api/galaxy/content/community/
+- name: kubevirt.core
+  source: https://3.86.109.168/api/galaxy/content/community/

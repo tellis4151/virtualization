@@ -1,0 +1,16 @@
+---
+- name: Swap Instance Type to add more Ressources
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+  - name: Swap Instance Type to add more Resources
+    redhat.openshift_virtualization.kubevirt_vm: 
+      name: "rhel9-vm1" 
+      namespace: "{{ vm_namespace }}" 
+      state: present 
+      run_strategy: RestartOnError 
+      instancetype: 
+        name: "{{ instance_type }}" 
+        revisionName: "" 

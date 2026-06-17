@@ -1,0 +1,15 @@
+---
+- name: Deploy VM from Folder Template
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Clone VM from template
+      vmware.vmware.deploy_folder_template:
+        validate_certs: false
+        datacenter: "SDDC=Datacenter"
+        cluster: Cluster-1
+        vm_name: "vm-demo-1"
+        template_name: "rhel94-tpl"
+        template_folder: "/SDDC-Datacenter/Templates/RHEL"
+        vm_folder: "/SDDC-Datacenter/Workloads/sandbox-j7ttn"

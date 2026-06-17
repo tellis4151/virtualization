@@ -6,9 +6,9 @@
   tasks:
   - name: Set the state of a virtual machine to poweroff
     vmware.vmware.vm_powerstate:
-    datacenter: "SDDC-Datacenter"
-    folder: "/SDDC-Datacenter/Workloads/sandbox-j7ttn"
-    name: "vm-clone"
-    validate_certs: false
-    state: powered-on
-  register: poweron
+      datacenter: "SDDC-Datacenter"
+      folder: "/SDDC-Datacenter/Workloads/sandbox-j7ttn"
+      name: "vm-clone"
+      validate_certs: false
+      state: powered-on
+   register: poweron

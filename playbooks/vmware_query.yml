@@ -6,7 +6,7 @@
   tasks:
     - name: Get IP from vCenter
       vmware.vmware.guest_info:
-        vcenter_validate_certs: false
+        validate_certs: false
         name: "vm-test-demo"
       register: vm_info
 

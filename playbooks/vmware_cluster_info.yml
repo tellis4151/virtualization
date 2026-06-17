@@ -1,0 +1,15 @@
+---
+- name: Gather Information In a Datacenter
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Gather Information About All Clusters In a Datacenter
+    vmware.vmware.cluster_info:
+      datacenter_name: SDDC-Datacenter
+      validate_certs: false
+    register: cluster_info
+
+  - name: Display Cluster Information
+    debug:
+      var: cluster_info

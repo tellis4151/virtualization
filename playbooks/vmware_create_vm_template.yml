@@ -1,0 +1,12 @@
+---
+- name: Deploy VM from Folder Template
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Create A New Template Using VM Name
+    vmware.vmware.folder_template_from_vm:  
+      datacenter: "SDDC-Datacenter"
+      vm_name: "vm-clone"
+      template_name: "rhel9-template"
+      template_folder: "Workloads/sandbox-j7ttn"

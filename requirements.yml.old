@@ -1,0 +1,3 @@
+collections:
+- name: vmware.vmware
+  source: https://34.228.145.22/api/galaxy/content/rh-certified/

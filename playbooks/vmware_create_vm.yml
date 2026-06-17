@@ -13,3 +13,24 @@
         template_name: "rhel94-tpl"
         template_folder: "Templates/RHEL"
         vm_folder: "Workloads/sandbox-j7ttn"
+
+    - name: Modify VM Configuration
+      vmware.vmware.vm:
+        name: "vm-demo-1"
+        cpu:
+          cores: 4
+          cores_per_socket: 2
+        memory: 
+          size_mb: 6144
+        disks:
+          - size_gb: 40
+            provisioning: thin
+            device_node: SCSI(0:0)
+        scsi_controllers:
+          - controller_type: paravirtual
+            bus_number: 0
+        network_adapters:
+          - network: segment-sandbox-j7ttn
+            adapter_type: vmxnet3
+            connected: true
+      register: vm_result

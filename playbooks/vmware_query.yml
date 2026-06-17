@@ -6,8 +6,8 @@
   tasks:
     - name: Get IP from vCenter
       vmware.vmware_rest.vcenter_vm_info:
-        validate_certs: false
-        vm_name: "vm-test-demo"
+        vcenter_validate_certs: false
+        names: "vm-test-demo"
       register: vm_info
 
     - name: Display VM information

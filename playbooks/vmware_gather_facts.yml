@@ -1,0 +1,9 @@
+---
+- name: Gather Edge Node Facts
+  tags: facts
+  hosts: demo-servers
+
+  tasks:
+  - name: Gather Facts
+    debug:
+      var: ansible_facts

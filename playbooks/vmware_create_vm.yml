@@ -12,4 +12,4 @@
         vm_name: "vm-demo-1"
         template_name: "rhel94-tpl"
         template_folder: "/SDDC-Datacenter/Templates/RHEL"
-        vm_folder: "/SDDC-Datacenter/Workloads/sandbox-j7ttn"
+        vm_folder: "Workloads/sandbox-j7ttn"

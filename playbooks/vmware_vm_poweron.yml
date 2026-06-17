@@ -11,4 +11,4 @@
       name: "vm-clone"
       validate_certs: false
       state: powered-on
-   register: poweron
+    register: poweron

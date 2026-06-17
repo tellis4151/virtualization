@@ -7,7 +7,7 @@
     - name: Get IP from vCenter
       vmware.vmware_rest.vcenter_vm_guest_networking_info:
         vcenter_validate_certs: false
-        names: "vm-test-demo"
+        vm: "vm-test-demo"
       register: vm_info
 
     - name: Display VM information

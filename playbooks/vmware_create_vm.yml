@@ -4,10 +4,10 @@
   gather_facts: false
 
   tasks:
-    - name: Clone VM from template
+    - name: Create VM from template
       vmware.vmware.deploy_folder_template:
         validate_certs: false
-        datacenter: "SDDC=Datacenter"
+        datacenter: "SDDC-Datacenter"
         cluster: Cluster-1
         vm_name: "vm-demo-1"
         template_name: "rhel94-tpl"

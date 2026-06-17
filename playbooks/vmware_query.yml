@@ -1,0 +1,15 @@
+---
+- name: Deploy VM from Folder Template
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Get IP from vCenter
+      vmware.vmware_rest.vmware_vm_info:
+        validate_certs: false
+        vm_name: "vm-test-demo"
+      register: vm_info
+
+    - name: Display VM information
+      debug:
+        var: vm_info

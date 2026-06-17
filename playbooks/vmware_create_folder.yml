@@ -1,0 +1,11 @@
+---
+- name: Deploy VM from Folder Template
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Create A Folder Using An Absolute Path
+    vmware.vmware.folder:
+      validate_certs: false
+      absolute_path: /SDDC-Datacenter/Workloads/sandbox-j7ttn/Templates
+      state: present

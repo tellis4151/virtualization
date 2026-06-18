@@ -35,12 +35,7 @@
         use: systemd
 
     - name: Register system
-      community.general.redhat_subscription:
-        state: present
-        username: "{{ username }}"
-        password: "{{ rh_password }}"
-        auto_attach: true
-      register: registration_output
+      ansible.builtin.command: subscription-manager register --username {{ rh_username }} --password {{ rh_password }} --auto-attach
 
     - name: Update security packages 
       dnf:

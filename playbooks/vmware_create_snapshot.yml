@@ -5,7 +5,7 @@
 
   tasks:
     - name: Create Snapshot
-      vmware.vmware.snapshot:
+      vmware.vmware.vm_snapshot:
         validate_certs: false
         datacenter: "SDDC-Datacenter"
         folder: "Workloads/sandbox-j7ttn"

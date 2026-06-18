@@ -16,7 +16,7 @@
 
     - name: Set IPv4 as a fact
       set_fact:
-        vm_ip: "{{ guests[0].ipv4 }}"
+        vm_ip: "{{ vm_info.guests[0].ipv4 }}"
 
     - name: Add new VM to temporary inventory group
       ansible.builtin.add_host:

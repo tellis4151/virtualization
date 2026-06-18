@@ -14,10 +14,19 @@
         template_folder: "Workloads/sandbox-j7ttn"
         vm_folder: "Workloads/sandbox-j7ttn"
 
+    - name: Set the state of a virtual machine to poweron
+      vmware.vmware.vm_powerstate:
+        datacenter: "SDDC-Datacenter"
+        folder: "Workloads/sandbox-j7ttn"
+        name: "vm-test-demo"
+        validate_certs: false
+        state: powered-on
+      register: poweron
+
     - name: Pause for 30 seconds
       ansible.builtin.pause:
-        seconds: 30
-        
+        seconds: 60
+
     - name: Get IP from vCenter
       vmware.vmware.guest_info:
         validate_certs: false

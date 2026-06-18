@@ -14,23 +14,16 @@
         template_folder: "Workloads/sandbox-j7ttn"
         vm_folder: "Workloads/sandbox-j7ttn"
 
-#    - name: Modify VM Configuration
-#      vmware.vmware.vm:
-#        name: "vm-demo-1"
-#        cpu:
-#          cores: 4
-#          cores_per_socket: 2
-#        memory: 
-#          size_mb: 6144
-#        disks:
-#          - size_gb: 40
-#            provisioning: thin
-#            device_node: SCSI(0:0)
-#        scsi_controllers:
-#          - controller_type: paravirtual
-#            bus_number: 0
-#        network_adapters:
-#          - network: segment-sandbox-j7ttn
-#            adapter_type: vmxnet3
-#            connected: true
-#      register: vm_result
+    - name: Pause for 30 seconds
+      ansible.builtin.pause:
+        seconds: 30
+        
+    - name: Get IP from vCenter
+      vmware.vmware.guest_info:
+        validate_certs: false
+        name: "vm-test-demo"
+      register: vm_info
+
+    - name: Display VM information
+      debug:
+        var: vm_info.guests[0].ipv4

@@ -1,7 +1,7 @@
 ---
-- name: Deploy VM from Folder Template
+- name: Query VM IP information
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
 
   tasks:
     - name: Get IP from vCenter
@@ -13,3 +13,39 @@
     - name: Display VM information
       debug:
         var: vm_info.guests[0].ipv4
+
+    - name: Set IPv4 as a fact
+      set_fact:
+        vm_ip: "{{ guests[0].ipv4 }}"
+
+    - name: Add new VM to temporary inventory group
+      ansible.builtin.add_host:
+        name: "{{ vm_ip }}"
+        groups: new_provisioned_vms
+        ansible_user: root
+        ansible_ssh_pass: "{{ demo_password }}"
+
+- name: Configure the new VM
+  hosts: new_provisioned_vms
+  gather_facts: true
+  tasks:
+    - name: Set Host Name
+      ansible.builtin.hostname:
+        name: "vm-test-demo"
+        use: systemd
+
+    - name: Register system
+      community.general.redhat_subscription:
+        state: present
+        username: "{{ username }}"
+        password: "{{ rh_password }}"
+        auto_attach: true
+      register: registration_output
+
+    - name: Update security packages 
+      dnf:
+        name: "*"
+        state: latest
+        security: true
+
+    

@@ -30,7 +30,7 @@
 
 - name: Configure the new VM
   hosts: new_provisioned_vms
-  gather_facts: true
+  gather_facts: false
   tasks:
     - name: Set Host Name
       ansible.builtin.hostname:

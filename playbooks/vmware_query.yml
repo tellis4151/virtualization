@@ -25,7 +25,7 @@
         ansible_user: root
         ansible_ssh_pass: "{{ demo_password }}"
         ansible_ssh_common_args: >
-          -o ProxyCommand="sshpass -p "{{ bastion_password }}" -W %h:%p -q "{{bastion_user}}"@"{{bastion_host}}"
+          -o ProxyCommand="sshpass -p "{{ bastion_password }}" ssh -W %h:%p -q "{{bastion_user}}"@"{{bastion_host}}"
           -o StrictHostKeyChecking=no"
 
 - name: Configure the new VM

@@ -1,5 +1,5 @@
 ---
-- name: Deploy VM from Folder Template
+- name: Power off VM
   hosts: localhost
   gather_facts: false
 
@@ -8,7 +8,7 @@
     vmware.vmware.vm_powerstate:
       datacenter: "SDDC-Datacenter"
       folder: "Workloads/sandbox-j7ttn"
-      name: "vm-clone"
+      name: "vm-test-demo"
       validate_certs: false
       state: powered-off
     register: poweroff

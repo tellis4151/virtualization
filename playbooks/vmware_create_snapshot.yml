@@ -1,0 +1,16 @@
+---
+- name: Create VM Snapshot
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create Snapshot
+      vmware.vmware.snapshot:
+        validate_certs: false
+        datacenter: "SDDC-Datacenter"
+        folder: "Workloads/sandbox-j7ttn"
+        name: "vm-test-demo"
+        state: present
+        snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"
+        description: Provisioning snapshot
+      register: snapshot_result

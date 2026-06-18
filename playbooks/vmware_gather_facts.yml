@@ -1,9 +1,11 @@
 ---
-- name: Gather Edge Node Facts
-  tags: facts
-  hosts: demo-servers
+- name: Gather VM Facts
+  hosts: localhost
+  gather_facts: true
 
   tasks:
-  - name: Gather Facts
-    debug:
-      var: ansible_facts
+    - name: Get Guest Information from vCenter
+      vmware.vmware.guest_info:
+        validate_certs: false
+        name: "vm-test-demo"
+      register: vm_info

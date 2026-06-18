@@ -1,7 +1,7 @@
 ---
 - name: Create VM Snapshot
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
 
   tasks:
     - name: Create Snapshot

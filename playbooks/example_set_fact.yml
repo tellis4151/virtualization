@@ -1,0 +1,15 @@
+---
+- name: Example Set Fact
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Set a list of items as a fact
+    ansible.builtin.set_fact:
+      my_item_list:
+        - "ITEM1_Test"
+        - "ITEM2_Dev"
+
+  - name: Optional debug to visually verify (no register needed!)
+    ansible.builtin.debug:
+      var: my_item_list

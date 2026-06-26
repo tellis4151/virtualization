@@ -13,3 +13,8 @@
   - name: Optional debug to visually verify (no register needed!)
     ansible.builtin.debug:
       var: my_item_list
+
+  - name: Run Job
+    ansible.builtin.debug:
+      msg: "Testing conditional logic"
+    when: "'ITEM1_Test' in my_item_list" 

@@ -9,4 +9,4 @@
       datacenter: "SDDC-Datacenter"
       vm_name: "vm-clone"
       template_name: "rhel9-template"
-      template_folder: "Workloads/sandbox-j7ttn"
+      template_folder: "Workloads/sandbox-qwrzn"

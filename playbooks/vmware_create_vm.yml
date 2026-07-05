@@ -10,14 +10,14 @@
         datacenter: "SDDC-Datacenter"
         cluster: Cluster-1
         vm_name: "vm-test-demo"
-        template_name: "rhel9-template"
-        template_folder: "Workloads/sandbox-j7ttn"
-        vm_folder: "Workloads/sandbox-j7ttn"
+        template_name: "rhel_9_template"
+        template_folder: "Workloads/sandbox-qwrzn"
+        vm_folder: "Workloads/sandbox-qwrzn"
 
     - name: Set the state of a virtual machine to poweron
       vmware.vmware.vm_powerstate:
         datacenter: "SDDC-Datacenter"
-        folder: "Workloads/sandbox-j7ttn"
+        folder: "Workloads/sandbox-qwrzn"
         name: "vm-test-demo"
         validate_certs: false
         state: powered-on

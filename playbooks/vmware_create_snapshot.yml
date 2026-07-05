@@ -8,7 +8,7 @@
       vmware.vmware.vm_snapshot:
         validate_certs: false
         datacenter: "SDDC-Datacenter"
-        folder: "Workloads/sandbox-j7ttn"
+        folder: "Workloads/sandbox-qwrzn"
         name: "vm-test-demo"
         state: present
         snapshot_name: "snapshot-{{ ansible_date_time.epoch }}"

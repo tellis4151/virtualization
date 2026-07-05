@@ -9,5 +9,5 @@
       validate_certs: false
       datacenter: "SDDC-Datacenter"
       folder_type: vm
-      relative_path: Workloads/sandbox-j7ttn/Templates
+      relative_path: Workloads/sandbox-qwrzn
       state: present

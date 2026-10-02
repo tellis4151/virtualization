@@ -1,0 +1,134 @@
+---
+- name: Clone VM with Dynamic ESXi Host Discovery via REST
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # vCenter Credentials
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
+    vcenter_validate_certs: false
+
+    # Target Selection
+    source_vm_name: "{{ source_vm_name }}"
+    new_vm_name: "{{ new_vm_name }}"
+    target_esxi_host_name: "{{ target_esxi_host_name }}"   # Desired host from the 3 standalone hosts
+    target_datastore_name: "{{ target_datastore_name }}"
+    target_folder_name: "{{ target_folder_name }}"
+
+    power_on_after_clone: true
+
+  tasks:
+    # 1. Query All Connected ESXi Hosts
+    - name: Query active ESXi hosts in vCenter
+      vmware.vmware_rest.vcenter_host_info:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        connection_states:
+          - CONNECTED
+      register: host_query_result
+
+    - name: Display all discovered connected ESXi hosts
+      ansible.builtin.debug:
+        msg: "Discovered Host: {{ item.name }} | MOID: {{ item.host }} | State: {{ item.connection_state }}"
+      loop: "{{ host_query_result.value }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+    # 2. Extract Target Host MOID
+    - name: Locate specified host in query results
+      ansible.builtin.set_fact:
+        target_host_id: "{{ (host_query_result.value | selectattr('name', 'equalto', target_esxi_host_name) | map(attribute='host') | list | first) }}"
+      failed_when: target_host_id is not defined or target_host_id == ""
+
+    # 3. Query Datastores Attached to the Selected Host
+    - name: Query datastores for selected target host
+      vmware.vmware_rest.vcenter_datastore_info:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        hosts:
+          - "{{ target_host_id }}"
+      register: datastore_query_result
+
+    - name: Locate specified datastore MOID on target host
+      ansible.builtin.set_fact:
+        target_datastore_id: "{{ (datastore_query_result.value | selectattr('name', 'equalto', target_datastore_name) | map(attribute='datastore') | list | first) }}"
+      failed_when: target_datastore_id is not defined or target_datastore_id == ""
+
+    # 4. Look up Source VM MOID
+    - name: Get source VM MOID
+      vmware.vmware_rest.vcenter_vm_info:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        names:
+          - "{{ source_vm_name }}"
+      register: source_vm_info
+
+    - name: Set Source VM MOID
+      ansible.builtin.set_fact:
+        source_vm_id: "{{ source_vm_info.value[0].vm }}"
+
+    # 5. Look up Folder MOID
+    - name: Get target VM folder MOID
+      vmware.vmware_rest.vcenter_folder_info:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        names:
+          - "{{ target_folder_name }}"
+        type: VIRTUAL_MACHINE
+      register: folder_info
+
+    - name: Set Target Folder MOID
+      ansible.builtin.set_fact:
+        target_folder_id: "{{ folder_info.value[0].folder }}"
+
+    # 6. Look up Host's Default Resource Pool MOID
+    - name: Get resource pool for selected target host
+      vmware.vmware_rest.vcenter_resourcepool_info:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        hosts:
+          - "{{ target_host_id }}"
+      register: resourcepool_info
+
+    - name: Set Target Resource Pool MOID
+      ansible.builtin.set_fact:
+        target_resourcepool_id: "{{ resourcepool_info.value[0].resource_pool }}"
+
+    # 7. Execute VM Clone
+    - name: Clone VM to target ESXi host
+      vmware.vmware_rest.vcenter_vm:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        name: "{{ new_vm_name }}"
+        source: "{{ source_vm_id }}"
+        placement:
+          host: "{{ target_host_id }}"
+          datastore: "{{ target_datastore_id }}"
+          folder: "{{ target_folder_id }}"
+          resource_pool: "{{ target_resourcepool_id }}"
+        state: clone
+      register: clone_result
+
+    # 8. Power On Cloned VM
+    - name: Power on newly cloned VM
+      vmware.vmware_rest.vcenter_vm_power:
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        vcenter_username: "{{ vcenter_username }}"
+        vcenter_password: "{{ vcenter_password }}"
+        vcenter_validate_certs: "{{ vcenter_validate_certs }}"
+        vm: "{{ clone_result.value }}"
+        state: start
+      when: power_on_after_clone
